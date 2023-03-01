@@ -4,11 +4,22 @@
     <!-- arg to config the launch file-->
 
     <arg name="launch_rviz" default="true"/>
+    <arg name="launch_rviz_multi_robot" default="false"/>
+    
     <arg name="gazebo_world" default="$(find rbkairos_gazebo)/worlds/office.world"/>
-    <arg name="default_map" default="willow_garage/willow_garage.yaml"/>
+    <arg name="map_package" default="$(find rbkairos_sim_bringup)"/>
+    <arg name="map_folder" default="maps"/>
+    <arg name="map_file" default="parking.yaml"/>
+    
+    <arg name="default_arm_model" default=""/>
+    <arg name="default_gripper_model" default=""/>
+    <arg name="default_xacro" default="rbkairos_base.urdf.xacro"/>
+    
+    <!--arg name="default_map" default="willow_garage/willow_garage.yaml"/>
     <arg name="default_arm_model" default="ur5"/>
     <arg name="default_gripper_model" default="egh"/>
-    <arg name="default_xacro" default="versions/rbkairos_$(arg default_arm_model)_$(arg default_gripper_model).urdf.xacro"/>
+    <arg name="default_xacro" default="versions/rbkairos_$(arg default_arm_model)_$(arg default_gripper_model).urdf.xacro"/-->
+    
     <arg name="omni_drive" default="true"/>
     <!-- Needed if using ur_description from fmauch_universal_robot -->
     <arg name="load_arm_kinematics_file" default="false"/>
@@ -16,14 +27,15 @@
     <arg name="launch_base_hw_sim" default="false"/>
     <arg name="launch_battery_estimator" default="false"/>
     <arg name="use_gpu" default="false"/>
+    <arg name="map_frame" default="robot_map"/>
 
     <!-- arguments robot a -->
     <arg name="id_robot_a" default="robot"/>
     <arg name="launch_robot_a" default="true"/>
     <arg name="xacro_robot_a" default="$(arg default_xacro)"/>
-    <arg name="map_package_a" default="$(find summit_xl_localization)"/>
-    <arg name="map_folder_a" default="maps"/>
-    <arg name="map_file_a" default="$(arg default_map)"/>
+    <arg name="map_package_a" value="$(arg map_package)"/>
+    <arg name="map_folder_a" value="$(arg map_folder)"/>
+    <arg name="map_file_a" value="$(arg map_file)"/>
     <arg name="localization_robot_a" default="false"/>
     <arg name="gmapping_robot_a" default="false"/>
     <arg name="move_base_robot_a" default="true"/>
@@ -41,21 +53,23 @@
     <!-- gripper robot a -->
     <arg name="launch_gripper_a" default="true"/>
     <arg name="gripper_model_a" default="$(arg default_gripper_model)"/>
+    <!-- map_frame robot a -->
+    <arg name="map_frame_robot_a" default="$(arg map_frame)"/>
 
     <!-- arguments robot b -->
     <arg name="id_robot_b" default="robot_b"/>
     <arg name="launch_robot_b" default="false"/>
     <arg name="xacro_robot_b" default="$(arg default_xacro)"/>
-    <arg name="map_package_b" default="$(find summit_xl_localization)"/>
-    <arg name="map_folder_b" default="maps"/>
-    <arg name="map_file_b" default="$(arg default_map)"/>
+    <arg name="map_package_b" value="$(arg map_package)"/>
+    <arg name="map_folder_b" value="$(arg map_folder)"/>
+    <arg name="map_file_b" value="$(arg map_file)"/>
     <arg name="localization_robot_b" default="false"/>
     <arg name="gmapping_robot_b" default="false"/>
     <arg name="move_base_robot_b" default="true"/>
     <arg name="amcl_and_mapserver_b" default="true"/>
     <arg name="launch_pad_b" default="true"/>
     <!-- spawn position robot b -->
-    <arg name="x_init_pose_robot_b" default="0" />
+    <arg name="x_init_pose_robot_b" default="1" />
     <arg name="y_init_pose_robot_b" default="1" />
     <arg name="z_init_pose_robot_b" default="0" />
     <arg name="yaw_init_pose_robot_b" default="0" />
@@ -66,21 +80,23 @@
     <!-- gripper robot b -->
     <arg name="launch_gripper_b" default="true"/>
     <arg name="gripper_model_b" default="$(arg default_gripper_model)"/>
+    <!-- map_frame robot b -->
+    <arg name="map_frame_robot_b" default="$(arg map_frame)"/>
 
     <!-- arguments robot c -->
     <arg name="id_robot_c" default="robot_c"/>
     <arg name="launch_robot_c" default="false"/>
     <arg name="xacro_robot_c" default="$(arg default_xacro)"/>
-    <arg name="map_package_c" default="$(find summit_xl_localization)"/>
-    <arg name="map_folder_c" default="maps"/>
-    <arg name="map_file_c" default="$(arg default_map)"/>
+    <arg name="map_package_c" value="$(arg map_package)"/>
+    <arg name="map_folder_c" value="$(arg map_folder)"/>
+    <arg name="map_file_c" value="$(arg map_file)"/>
     <arg name="localization_robot_c" default="false"/>
     <arg name="gmapping_robot_c" default="false"/>
     <arg name="move_base_robot_c" default="true"/>
     <arg name="amcl_and_mapserver_c" default="true"/>
     <arg name="launch_pad_c" default="true"/>
     <!-- spawn position robot c -->
-    <arg name="x_init_pose_robot_c" default="0" />
+    <arg name="x_init_pose_robot_c" default="2" />
     <arg name="y_init_pose_robot_c" default="2" />
     <arg name="z_init_pose_robot_c" default="0" />
     <arg name="yaw_init_pose_robot_c" default="0" />
@@ -91,6 +107,62 @@
     <!-- gripper robot c -->
     <arg name="launch_gripper_c" default="true"/>
     <arg name="gripper_model_c" default="$(arg default_gripper_model)"/>
+    <!-- map_frame robot c -->
+    <arg name="map_frame_robot_c" default="$(arg map_frame)"/>
+    
+    <!-- arguments robot d -->
+    <arg name="id_robot_d" default="robot_d"/>
+    <arg name="launch_robot_d" default="false"/>
+    <arg name="xacro_robot_d" default="$(arg default_xacro)"/>
+    <arg name="map_package_d" value="$(arg map_package)"/>
+    <arg name="map_folder_d" value="$(arg map_folder)"/>
+    <arg name="map_file_d" value="$(arg map_file)"/>
+    <arg name="localization_robot_d" default="false"/>
+    <arg name="gmapping_robot_d" default="false"/>
+    <arg name="move_base_robot_d" default="true"/>
+    <arg name="amcl_and_mapserver_d" default="true"/>
+    <arg name="launch_pad_d" default="true"/>
+    <!-- spawn position robot d -->
+    <arg name="x_init_pose_robot_d" default="-1" />
+    <arg name="y_init_pose_robot_d" default="1" />
+    <arg name="z_init_pose_robot_d" default="0" />
+    <arg name="yaw_init_pose_robot_d" default="0" />
+    <!-- arm robot d -->
+    <arg name="launch_arm_d" default="true"/>
+    <arg name="arm_model_d" default="$(arg default_arm_model)"/>
+    <arg name="moveit_movegroup_d" default="false"/>
+    <!-- gripper robot d -->
+    <arg name="launch_gripper_d" default="true"/>
+    <arg name="gripper_model_d" default="$(arg default_gripper_model)"/>
+    <!-- map_frame robot d -->
+    <arg name="map_frame_robot_d" default="$(arg map_frame)"/>
+
+   <!-- arguments robot e -->
+    <arg name="id_robot_e" default="robot_e"/>
+    <arg name="launch_robot_e" default="false"/>
+    <arg name="xacro_robot_e" default="$(arg default_xacro)"/>
+    <arg name="map_package_e" value="$(arg map_package)"/>
+    <arg name="map_folder_e" value="$(arg map_folder)"/>
+    <arg name="map_file_e" value="$(arg map_file)"/>
+    <arg name="localization_robot_e" default="false"/>
+    <arg name="gmapping_robot_e" default="false"/>
+    <arg name="move_base_robot_e" default="true"/>
+    <arg name="amcl_and_mapserver_e" default="true"/>
+    <arg name="launch_pad_e" default="true"/>
+    <!-- spawn position robot e -->
+    <arg name="x_init_pose_robot_e" default="-2" />
+    <arg name="y_init_pose_robot_e" default="2" />
+    <arg name="z_init_pose_robot_e" default="0" />
+    <arg name="yaw_init_pose_robot_e" default="0" />
+    <!-- arm robot e -->
+    <arg name="launch_arm_e" default="true"/>
+    <arg name="arm_model_e" default="$(arg default_arm_model)"/>
+    <arg name="moveit_movegroup_e" default="false"/>
+    <!-- gripper robot e -->
+    <arg name="launch_gripper_e" default="true"/>
+    <arg name="gripper_model_e" default="$(arg default_gripper_model)"/>
+    <!-- map_frame robot e -->
+    <arg name="map_frame_robot_e" default="$(arg map_frame)"/>
 
 
     <!-- RBKAIROS GAZEBO -->
@@ -98,6 +170,7 @@
 
         <!-- general args -->
         <arg name="launch_rviz" value="$(arg launch_rviz)"/>
+        <arg name="launch_rviz_multi_robot" value="$(arg launch_rviz_multi_robot)"/>
         <arg name="gazebo_world" value="$(arg gazebo_world)"/>
         <arg name="ros_planar_move_plugin" value="$(arg omni_drive)"/>
         <arg name="load_arm_kinematics_file" value="$(arg load_arm_kinematics_file)"/>
@@ -129,6 +202,8 @@
         <!-- robot_a gripper args -->
         <arg name="launch_gripper_a" value="$(arg launch_gripper_a)"/>
         <arg name="gripper_model_a" value="$(arg gripper_model_a)"/>
+        <!-- map_frame robot a -->
+        <arg name="map_frame_robot_a" default="$(arg map_frame_robot_a)"/>
 
         <!-- robot_b args -->
         <arg name="id_robot_b" value="$(arg id_robot_b)"/>
@@ -154,6 +229,8 @@
         <!-- robot_b gripper args -->
         <arg name="launch_gripper_b" value="$(arg launch_gripper_b)"/>
         <arg name="gripper_model_b" value="$(arg gripper_model_b)"/>
+        <!-- map_frame robot b -->
+        <arg name="map_frame_robot_b" default="$(arg map_frame_robot_b)"/>
 
         <!-- robot_c args -->
         <arg name="id_robot_c" value="$(arg id_robot_c)"/>
@@ -179,6 +256,62 @@
         <!-- robot_c gripper args -->
         <arg name="launch_gripper_c" value="$(arg launch_gripper_c)"/>
         <arg name="gripper_model_c" value="$(arg gripper_model_c)"/>
+        <!-- map_frame robot c -->
+        <arg name="map_frame_robot_c" default="$(arg map_frame_robot_c)"/>
+        
+        <!-- robot_d args -->
+        <arg name="id_robot_d" value="$(arg id_robot_d)"/>
+        <arg name="launch_robot_d" value="$(arg launch_robot_d)"/>
+        <arg name="xacro_robot_d" value="$(arg xacro_robot_d)"/>
+        <arg name="map_package_d" value="$(arg map_package_d)"/>
+        <arg name="map_folder_d" value="$(arg map_folder_d)"/>
+        <arg name="map_file_d" value="$(arg map_file_d)"/>
+        <arg name="localization_robot_d" value="$(arg localization_robot_d)"/>
+        <arg name="gmapping_robot_d" value="$(arg gmapping_robot_d)"/>
+        <arg name="move_base_robot_d" value="$(arg move_base_robot_d)"/>
+        <arg name="amcl_and_mapserver_d" value="$(arg amcl_and_mapserver_d)"/>
+        <arg name="launch_pad_d" value="$(arg launch_pad_d)"/>
+        <!-- robot_d spawn position args -->
+        <arg name="x_init_pose_robot_d" value="$(arg x_init_pose_robot_d)"/>
+        <arg name="y_init_pose_robot_d" value="$(arg y_init_pose_robot_d)"/>
+        <arg name="z_init_pose_robot_d" value="$(arg z_init_pose_robot_d)"/>
+        <arg name="yaw_init_pose_robot_d" value="$(arg yaw_init_pose_robot_d)"/>
+        <!-- robot_d arm args -->
+        <arg name="launch_arm_d" value="$(arg launch_arm_d)"/>
+        <arg name="arm_model_d" value="$(arg arm_model_d)"/>
+        <arg name="moveit_movegroup_d" value="$(arg moveit_movegroup_d)"/>
+        <!-- robot_d gripper args -->
+        <arg name="launch_gripper_d" value="$(arg launch_gripper_d)"/>
+        <arg name="gripper_model_d" value="$(arg gripper_model_d)"/>
+        <!-- map_frame robot d -->
+        <arg name="map_frame_robot_d" default="$(arg map_frame_robot_d)"/>
+        
+        <!-- robot_e args -->
+        <arg name="id_robot_e" value="$(arg id_robot_e)"/>
+        <arg name="launch_robot_e" value="$(arg launch_robot_e)"/>
+        <arg name="xacro_robot_e" value="$(arg xacro_robot_e)"/>
+        <arg name="map_package_e" value="$(arg map_package_e)"/>
+        <arg name="map_folder_e" value="$(arg map_folder_e)"/>
+        <arg name="map_file_e" value="$(arg map_file_a)"/>
+        <arg name="localization_robot_e" value="$(arg localization_robot_e)"/>
+        <arg name="gmapping_robot_e" value="$(arg gmapping_robot_e)"/>
+        <arg name="move_base_robot_e" value="$(arg move_base_robot_e)"/>
+        <arg name="amcl_and_mapserver_e" value="$(arg amcl_and_mapserver_e)"/>
+        <arg name="launch_pad_e" value="$(arg launch_pad_e)"/>
+        <!-- robot_e spawn position args -->
+        <arg name="x_init_pose_robot_e" value="$(arg x_init_pose_robot_e)"/>
+        <arg name="y_init_pose_robot_e" value="$(arg y_init_pose_robot_e)"/>
+        <arg name="z_init_pose_robot_e" value="$(arg z_init_pose_robot_e)"/>
+        <arg name="yaw_init_pose_robot_e" value="$(arg yaw_init_pose_robot_e)"/>
+        <!-- robot_e arm args -->
+        <arg name="launch_arm_e" value="$(arg launch_arm_e)"/>
+        <arg name="arm_model_e" value="$(arg arm_model_e)"/>
+        <arg name="moveit_movegroup_e" value="$(arg moveit_movegroup_e)"/>
+        <!-- robot_e gripper args -->
+        <arg name="launch_gripper_e" value="$(arg launch_gripper_e)"/>
+        <arg name="gripper_model_e" value="$(arg gripper_model_e)"/>
+        <!-- map_frame robot d -->
+        <arg name="map_frame_robot_e" default="$(arg map_frame_robot_e)"/>
 
 
     </include>

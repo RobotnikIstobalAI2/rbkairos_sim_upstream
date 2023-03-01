@@ -113,6 +113,10 @@ WORKDIR $ck_dir
 COPY --chown=$user_name \
 	rbkairos_gazebo \
 	$ck_src_dir/rbkairos_gazebo
+	
+RUN true \
+	&& cp -r $ck_src_dir/rbkairos_gazebo/models/car_model_1 $user_home/.gazebo/models/ \
+        && cp -r $ck_src_dir/rbkairos_gazebo/models/car_model_2 $user_home/.gazebo/models/
 
 COPY --chown=$user_name \
 	rbkairos_sim \
@@ -166,4 +170,42 @@ ENV ROS_BU_LAUNCH "rbkairos_complete.launch"
 ENV CATKIN_WS $ck_dir
 ENV RBK_CATKIN_PATH $ck_dir
 
-CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"
+CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH} \
+	  	launch_rviz:=false \
+		launch_rviz_multi_robot:=true \
+		gazebo_world:=/home/ros/catkin_ws/src/rbkairos_gazebo/worlds/parking_indoor.world \
+		map_package:=/home/ros/catkin_ws/src/rbkairos_gazebo \
+		map_folder:=maps \
+		map_file:=parking.yaml \
+		launch_arm_a:=false \
+		launch_gripper_a:=false \
+		launch_arm_b:=false \
+		launch_gripper_b:=false \
+		launch_arm_c:=false \
+		launch_gripper_c:=false \
+		launch_arm_d:=false \
+		launch_gripper_d:=false \
+		launch_arm_e:=false \
+		launch_gripper_e:=false \
+		id_robot_a:=robot_a \
+		launch_robot_a:=true \
+		launch_robot_b:=true \
+		launch_robot_c:=true \
+		launch_robot_d:=true \
+		launch_robot_e:=true "
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

@@ -4,6 +4,7 @@
 	<!-- roslaunch arguments --> 
 	<arg name="debug" default="false"/>
 	<arg name="launch_rviz" default="false"/>
+	<arg name="launch_rviz_multi_robot" default="false"/>
 	<!--arg name="world" default="office.world"/--> <!-- located in summit_xl_gazebo/worlds -->
 	<arg name="world" default="$(find rbkairos_gazebo)/worlds/office.world"/> <!-- Changed to absolute path-->
 
@@ -14,10 +15,14 @@
 		<arg name="paused" value="true"/>
 		<arg name="use_sim_time" value="true"/>
 		<arg name="headless" value="false"/>
+		<arg name="verbose" value="true"/>
 	</include>
 	
 	<!-- launch rviz -->
 	<node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find rbkairos_gazebo)/rviz/rbkairos_a.rviz"/>
+	
+	<!-- launch rviz with multiple robots -->
+	<node if="$(arg launch_rviz_multi_robot)" name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find rbkairos_gazebo)/rviz/multi_robot.rviz"/>
 
 	
 	

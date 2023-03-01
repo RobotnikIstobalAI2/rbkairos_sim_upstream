@@ -1,0 +1,15 @@
+material carModel1Mat/Sheet
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture car.jpg
+      }
+    }
+  }
+
+}

@@ -2,6 +2,7 @@
 <launch>
 
     <arg name="id_robot" default="robot"/>
+    <arg name="global_frame" default="robot_map"/>
 
     <arg name="x_init_pose" default="0"/>
     <arg name="y_init_pose" default="0"/>
@@ -109,6 +110,7 @@
             <arg name="prefix" value="$(arg prefix)"/>
             <arg name="map_file" value="$(arg map_file)"/>
             <arg name="maps_path" value="$(arg map_package)/$(arg map_folder)"/>
+            <arg name="frame_id" value="$(arg global_frame)"/>
         </include>
         <include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/amcl.launch">
             <arg name="prefix" value="$(arg prefix)"/>
@@ -116,6 +118,7 @@
             <arg name="y_init_pose" value="$(arg y_init_pose)"/>
             <arg name="z_init_pose" value="$(arg z_init_pose)"/>
             <arg name="odom_model_type" value="$(arg odom_model_type)"/>
+            <arg name="global_frame" value="$(arg global_frame)"/>
         </include>
 
         <!-- move base -->
@@ -124,6 +127,7 @@
             <arg name="local_planner" value="$(arg movebase_local_planner)"/>
             <arg if="$(arg ros_planar_move_plugin)" name="differential_robot" value="false"/>
             <arg unless="$(arg ros_planar_move_plugin)" name="differential_robot" value="true"/>
+            <arg name="global_frame" value="$(arg global_frame)"/>
         </include>
 
         <!-- gmapping -->
